@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JeFree · Oscar</title>
+<style>
+:root{--purple:#5b35f2;--purple-soft:#f1ecff;--ink:#101014;--muted:#707789;--line:#ececf3;--bg:#fbfbfd;--card:#ffffff;--green:#2fbf74;--shadow:0 16px 38px rgba(15,23,42,.08)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;background:#f7f7fb;color:var(--ink)}
+.shell{max-width:1440px;margin:0 auto;min-height:100vh;display:grid;grid-template-columns:260px 1fr;background:#fff;border-left:1px solid #eee;border-right:1px solid #eee;box-shadow:0 0 40px rgba(0,0,0,.04)}
+aside{border-right:1px solid var(--line);padding:34px 22px;display:flex;flex-direction:column;gap:24px;min-height:100vh;background:#fff}
+.logo{height:50px;display:flex;align-items:center;margin-bottom:14px}
+.logo img{max-width:150px;max-height:50px;object-fit:contain}
+.fallbackLogo{font-size:40px;line-height:1;font-weight:950;letter-spacing:-2px}.fallbackLogo span{color:var(--purple)}
+nav{display:flex;flex-direction:column;gap:10px}
+.navItem{width:100%;border:0;background:transparent;border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;color:#4b5563;font-weight:800;cursor:pointer;font-size:15px;transition:.18s ease}
+.navItem:hover{background:#f8f6ff;color:var(--purple)}.navItem.active{background:var(--purple-soft);color:var(--purple)}
+.promo{margin-top:auto;background:linear-gradient(180deg,#f4eefe,#fbf8ff);border-radius:22px;padding:18px;min-height:245px;overflow:hidden;position:relative}
+.promo h4{margin:0 0 8px;font-size:16px;line-height:1.25;color:#1f164f}.promo p{margin:0;color:#70668c;font-size:13px;line-height:1.35}
+.qr{margin-top:15px;width:86px;height:86px;border-radius:12px;background:linear-gradient(90deg,#111 12px,transparent 12px) 0 0/22px 22px,linear-gradient(#111 12px,transparent 12px) 0 0/22px 22px,#fff;border:8px solid #fff;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.phoneMini{position:absolute;right:16px;bottom:14px;width:66px;height:118px;border:5px solid #111;border-radius:18px;background:#fff;transform:rotate(8deg);box-shadow:0 14px 26px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px}
+.help{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+main{padding:38px 42px 30px;background:#fff}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.hello h1{margin:0;font-size:34px;line-height:1.1;letter-spacing:-1.2px}.hello p{margin:10px 0 0;color:#535b6f;font-size:17px}
+.userTop{display:flex;align-items:center;gap:18px}.bell{font-size:23px;color:#293141;cursor:pointer}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--purple);color:white;display:flex;align-items:center;justify-content:center;font-weight:950;font-size:18px;box-shadow:0 10px 24px rgba(91,53,242,.22)}
+.chev{font-size:18px;color:#293141}
+.banner{height:255px;border-radius:20px;overflow:hidden;position:relative;margin-bottom:32px;box-shadow:var(--shadow);background:#0f172a}
+.banner:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,31,55,.82),rgba(12,31,55,.28)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85');background-size:cover;background-position:center}
+.bannerText{position:relative;z-index:1;color:#fff;padding:36px;max-width:620px}.bannerText h2{margin:0 0 12px;font-size:34px;line-height:1.08;letter-spacing:-1px}.bannerText p{margin:0 0 26px;font-size:17px;color:#eef2ff}
+.primary{border:0;background:var(--purple);color:#fff;border-radius:12px;padding:15px 27px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 12px 22px rgba(91,53,242,.30)}
+.rowTitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.rowTitle h2{margin:0;font-size:24px;letter-spacing:-.4px}
+.seeAll{border:0;background:transparent;color:var(--purple);font-weight:900;cursor:pointer}
+.categories{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-bottom:36px}
+.cat{min-height:94px;border:0;background:#fff;border-right:1px solid #f0f0f4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:.18s ease}
+.cat:hover{transform:translateY(-3px)}.catIcon{width:62px;height:62px;border-radius:19px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}.cat span{font-size:14px;font-weight:900}
+.lav{background:#f4edff;color:#8b5cf6}.blue{background:#eef2ff;color:#3f51e8}.aqua{background:#e9fbf7;color:#0ea5a1}.pink{background:#fff0f7;color:#df4f86}.orange{background:#fff7ed;color:#f59e0b}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}
+.reservation{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:0 10px 26px rgba(15,23,42,.07);transition:.18s ease}.reservation:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(15,23,42,.10)}
+.reservationImg{height:145px;position:relative;overflow:hidden}.reservationImg img{width:100%;height:100%;object-fit:cover;display:block}
+.status{position:absolute;left:10px;bottom:9px;background:#dff8ec;color:#17744a;border:1px solid rgba(23,116,74,.18);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900}
+.status.pending{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.status.cancelled{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+.reservationBody{padding:13px 14px 15px}.reservationBody h3{margin:0 0 10px;font-size:15px}.reservationBody p{margin:0 0 8px;color:#6b7280;font-size:13px}
+.details{margin-top:12px;border:0;background:transparent;color:var(--purple);font-weight:900;padding:0;cursor:pointer}
+.assistant{display:grid;grid-template-columns:70px 1fr 58px;align-items:center;gap:12px;border:2px solid #e9e2ff;border-radius:24px;padding:15px 18px;box-shadow:0 10px 26px rgba(91,53,242,.06);margin-top:8px}
+.spark{width:46px;height:46px;border-radius:16px;background:#f4edff;color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:24px}
+.assistant h3{margin:0 0 4px;font-size:17px}.assistant input{border:0;outline:0;width:100%;font-size:15px;color:#4b5563}.mic{width:48px;height:48px;border-radius:50%;border:0;background:var(--purple);color:#fff;font-size:22px;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(17,24,39,.35);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}.modal.show{display:flex}
+.modalBox{width:min(760px,100%);border-radius:28px;background:#fff;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.20);max-height:88vh;overflow:auto}.modalBox h2{margin:0 0 10px}.modalBox p{color:#5b6477;line-height:1.5}
+.modalActions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.secondary{border:1px solid var(--line);background:#fff;color:#111827;border-radius:12px;padding:13px 18px;font-weight:900;cursor:pointer}
+.chatPanel{display:grid;grid-template-columns:1fr 230px;gap:16px;margin-top:16px}
+.chatWindow{height:360px;background:#fafafa;border:1px solid var(--line);border-radius:20px;padding:14px;overflow:auto}
+.msg{max-width:82%;padding:11px 13px;border-radius:16px;margin:9px 0;font-size:14px;line-height:1.4}.bot{background:white;border:1px solid var(--line)}.user{margin-left:auto;background:var(--purple);color:white}
+.chatInput{display:flex;gap:8px;margin-top:10px}.chatInput input{flex:1;border:1px solid var(--line);border-radius:14px;padding:13px;outline:0}.send{border:0;border-radius:14px;background:var(--purple);color:white;font-weight:900;padding:0 16px;cursor:pointer}
+.quick{display:grid;gap:8px}.quick button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px;font-weight:800;cursor:pointer;color:#4b5563}.quick button:hover{background:#f8f6ff;color:var(--purple)}
+.bookingSteps{display:grid;gap:10px;margin-top:16px}.step{display:flex;gap:10px;align-items:center;background:#fafafa;border:1px solid var(--line);border-radius:15px;padding:12px;font-weight:800;color:#4b5563}.step.done{background:#ecfdf5;color:#166534}.step span{width:26px;height:26px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center}.step.done span{background:#2fbf74;color:#fff}
+.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.field{background:#fafafa;border:1px solid var(--line);border-radius:15px;padding:12px}.field label{display:block;font-size:12px;color:#707789;font-weight:900;margin-bottom:6px}.field b{font-size:15px}
+.toast{position:fixed;right:24px;bottom:24px;background:#101014;color:#fff;border-radius:18px;padding:15px 18px;box-shadow:0 18px 40px rgba(0,0,0,.22);opacity:0;transform:translateY(30px);transition:.22s ease;z-index:50}.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:1100px){.shell{grid-template-columns:1fr}aside{min-height:auto}.promo{display:none}.cards{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.chatPanel{grid-template-columns:1fr}}
+@media(max-width:680px){main{padding:24px 18px}header{align-items:flex-start;gap:18px;flex-direction:column}.bannerText h2{font-size:27px}.cards,.categories,.formGrid{grid-template-columns:1fr}.assistant{grid-template-columns:52px 1fr 48px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside>
+<div class="logo"><div class='fallbackLogo'>JeFree<span>∙</span></div></div>
+<nav>
+<button class="navItem active" onclick="setActive(this,'Inicio')">🏠 Inicio</button><button class="navItem" onclick="setActive(this,'Descubrir')">🔍 Descubrir</button><button class="navItem" onclick="setActive(this,'Reservas')">🗓️ Reservas</button><button class="navItem" onclick="setActive(this,'Viajes')">✈️ Viajes</button><button class="navItem" onclick="setActive(this,'Experiencias')">🧭 Experiencias</button><button class="navItem" onclick="setActive(this,'Favoritos')">♡ Favoritos</button><button class="navItem" onclick="setActive(this,'Pagos')">💳 Pagos</button><button class="navItem" onclick="setActive(this,'Mensajes')">✉️ Mensajes</button>
+</nav>
+<div class="promo"><h4>Lleva JeFree contigo a todas partes</h4><p>Escanea para descargar la app</p><div class="qr"></div><div class="phoneMini">JeFree</div></div>
+<div class="help"><button class="navItem" onclick="setActive(this,'Ayuda')">❔ Ayuda</button><button class="navItem" onclick="setActive(this,'Ajustes')">⚙️ Ajustes</button></div>
+</aside>
+<main>
+<header><div class="hello"><h1>¡Hola, Oscar! 👋</h1><p>Tu tiempo es valioso. JeFree se encarga del resto.</p></div><div class="userTop"><div class="bell" onclick="showNotifications()">🔔</div><div class="avatar">O</div><div class="chev">⌄</div></div></header>
+<section class="banner"><div class="bannerText"><h2>Las mejores experiencias,<br/>reservadas para ti</h2><p>Restaurantes, hoteles, viajes y más</p><button class="primary" onclick="openBooking('Experiencia recomendada')">Descubrir ahora</button></div></section>
+<div class="rowTitle"><h2>¿Qué necesitas hoy?</h2><button class="seeAll" onclick="openExplore()">Ver todas</button></div>
+<section class="categories">
+<button class="cat" onclick="openBooking('Restaurantes')"><div class="catIcon lav">🍴</div><span>Restaurantes</span></button>
+<button class="cat" onclick="openBooking('Hoteles')"><div class="catIcon blue">🛏️</div><span>Hoteles</span></button>
+<button class="cat" onclick="openBooking('Viajes')"><div class="catIcon aqua">✈️</div><span>Viajes</span></button>
+<button class="cat" onclick="openBooking('Belleza')"><div class="catIcon pink">🪷</div><span>Belleza</span></button>
+<button class="cat" onclick="openBooking('Ocio')"><div class="catIcon orange">🎟️</div><span>Ocio</span></button>
+</section>
+<div class="rowTitle"><h2>Mis próximas reservas</h2><button class="seeAll" onclick="openReservations()">Ver todas</button></div>
+<section class="cards" id="cards"></section>
+<section class="assistant"><div class="spark">✦</div><div><h3>¿En qué puedo ayudarte hoy?</h3><input id="assistantInput" placeholder="Pide, busca, reserva... JeFree lo hace por ti." onkeydown="if(event.key==='Enter')assistantAsk()"/></div><button class="mic" onclick="assistantAsk()">🎙</button></section>
+</main>
+</div>
+
+<div class="modal" id="modal" onclick="closeModal(event)"><div class="modalBox"><h2 id="modalTitle">JeFree</h2><div id="modalBody"></div><div class="modalActions" id="modalActions"><button class="secondary" onclick="hideModal()">Cerrar</button><button class="primary" onclick="confirmAction()">Confirmar acción</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const userName="Oscar";
+let reservations=[
+ {id:1,title:"Restaurante Marena",date:"Hoy · 20:30",place:"Barcelona",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=85",status:"Confirmada",type:"Restaurante"},
+ {id:2,title:"Hotel Nobu Barcelona",date:"24–26 May",place:"Barcelona",img:"https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=700&q=85",status:"Confirmada",type:"Hotel"},
+ {id:3,title:"Vuelo a Roma",date:"30 May · 09:15",place:"BCN → FCO",img:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=700&q=85",status:"Confirmada",type:"Viaje"},
+ {id:4,title:"Masaje Relajante",date:"31 May · 18:00",place:"Zen Spa",img:"https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=700&q=85",status:"Confirmada",type:"Belleza"}
+];
+let chat=[
+ {from:"bot",text:"Hola, "+userName+". Puedo buscar, reservar, cambiar o cancelar planes por ti. Prueba: “reserva restaurante para hoy” o “cambia mi masaje”."}
+];
+
+function renderCards(){
+ document.getElementById('cards').innerHTML=reservations.map(r=>`
+ <article class="reservation">
+  <div class="reservationImg"><img src="${r.img}"/><span class="status ${r.status==='Cancelada'?'cancelled':(r.status==='Pendiente'?'pending':'')}">${r.status}</span></div>
+  <div class="reservationBody"><h3>${r.title}</h3><p>${r.date}</p><p>${r.place}</p><button class="details" onclick="openReservation(${r.id})">Ver detalles</button></div>
+ </article>`).join('');
+}
+
+function setActive(btn,label){document.querySelectorAll('.navItem').forEach(b=>b.classList.remove('active'));btn.classList.add('active'); if(label==='Reservas')openReservations(); else if(label==='Descubrir')openExplore(); else if(label==='Mensajes')openChat(); else if(label==='Viajes')openBooking('Viajes'); else if(label==='Experiencias')openBooking('Experiencias'); else if(label==='Pagos')openPayments(); else if(label==='Favoritos')openFavorites(); else if(label==='Ayuda')openHelp(); else if(label==='Ajustes')openSettings();}
+function showModal(title, body, actions=true){document.getElementById('modalTitle').innerHTML=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('modalActions').style.display=actions?'flex':'none';document.getElementById('modal').classList.add('show')}
+function hideModal(){document.getElementById('modal').classList.remove('show')}
+function closeModal(e){if(e.target.id==='modal')hideModal()}
+function toast(txt){const t=document.getElementById('toast');t.innerText=txt;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+
+function openBooking(type){
+ const options={
+  "Restaurantes":["Restaurante Marena","Hoy · 20:30","Barcelona","Mesa para 2 · terraza · cocina mediterránea","https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85"],
+  "Hoteles":["Hotel Nobu Barcelona","24–26 May","Barcelona","Habitación Deluxe · cancelación flexible","https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=85"],
+  "Viajes":["Vuelo a Roma","30 May · 09:15","BCN → FCO","Equipaje incluido · tarifa flexible","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=85"],
+  "Belleza":["Masaje Relajante","31 May · 18:00","Zen Spa","60 min · sala premium","https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=900&q=85"],
+  "Ocio":["Entradas teatro","Viernes · 21:00","Gran Vía","2 entradas · butacas centrales","https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=900&q=85"],
+  "Experiencias":["Cena + rooftop","Sábado · 20:45","Madrid","Plan completo con reserva y transporte","https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85"],
+  "Experiencia recomendada":["Cena frente al mar","Hoy · 20:30","Barcelona","Mesa confirmada + movilidad sugerida","https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85"]
+ };
+ const o=options[type]||options["Experiencia recomendada"];
+ showModal("Nueva reserva · "+type,`
+  <img src="${o[4]}" style="width:100%;height:220px;object-fit:cover;border-radius:20px;margin-bottom:16px"/>
+  <div class="formGrid">
+   <div class="field"><label>Opción recomendada</label><b>${o[0]}</b></div>
+   <div class="field"><label>Fecha / hora</label><b>${o[1]}</b></div>
+   <div class="field"><label>Ubicación</label><b>${o[2]}</b></div>
+   <div class="field"><label>Detalles</label><b>${o[3]}</b></div>
+  </div>
+  <div class="bookingSteps">
+   <div class="step done"><span>✓</span>Preferencias analizadas</div>
+   <div class="step done"><span>✓</span>Disponibilidad encontrada</div>
+   <div class="step"><span>3</span>Pendiente de confirmación</div>
+  </div>
+ `);
+ window.pendingReservation={title:o[0],date:o[1],place:o[2],img:o[4],status:"Pendiente",type:type};
+}
+
+function confirmAction(){
+ if(window.pendingReservation){
+   reservations.unshift({...window.pendingReservation,id:Date.now(),status:"Confirmada"});
+   window.pendingReservation=null;
+   renderCards();
+   hideModal();
+   toast("Reserva confirmada y añadida a próximas reservas.");
+ } else {
+   hideModal();
+   toast("Acción confirmada por JeFree.");
+ }
+}
+
+function openReservation(id){
+ const r=reservations.find(x=>x.id===id);
+ showModal(r.title,`
+  <img src="${r.img}" style="width:100%;height:220px;object-fit:cover;border-radius:20px;margin-bottom:16px"/>
+  <div class="formGrid">
+   <div class="field"><label>Estado</label><b>${r.status}</b></div>
+   <div class="field"><label>Tipo</label><b>${r.type}</b></div>
+   <div class="field"><label>Fecha / hora</label><b>${r.date}</b></div>
+   <div class="field"><label>Ubicación</label><b>${r.place}</b></div>
+  </div>
+  <div class="modalActions" style="margin-top:18px">
+    <button class="secondary" onclick="reschedule(${r.id})">Reprogramar</button>
+    <button class="secondary" onclick="cancelReservation(${r.id})">Cancelar</button>
+    <button class="primary" onclick="hideModal()">Mantener reserva</button>
+  </div>
+ `,false);
+}
+function reschedule(id){const r=reservations.find(x=>x.id===id);r.date="Mañana · 19:30";r.status="Confirmada";renderCards();hideModal();toast("Reserva reprogramada y calendario actualizado.")}
+function cancelReservation(id){const r=reservations.find(x=>x.id===id);r.status="Cancelada";renderCards();hideModal();toast("Reserva cancelada. JeFree puede buscar alternativa.")}
+
+function openReservations(){
+ showModal("Todas tus reservas",reservations.map(r=>`
+  <div class="step"><span>${r.type[0]}</span><div><b>${r.title}</b><br><small>${r.date} · ${r.place} · ${r.status}</small></div></div>
+ `).join(''),false);
+}
+function openExplore(){showModal("Descubrir",`<p>JeFree ha preparado opciones disponibles según tus preferencias.</p><div class="bookingSteps"><div class="step" onclick="openBooking('Restaurantes')"><span>🍴</span>Restaurantes cerca de ti</div><div class="step" onclick="openBooking('Hoteles')"><span>🛏️</span>Hoteles para tu próximo viaje</div><div class="step" onclick="openBooking('Ocio')"><span>🎟️</span>Planes de ocio esta semana</div></div>`,false)}
+function openPayments(){showModal("Pagos",`<div class="formGrid"><div class="field"><label>Método principal</label><b>Visa terminada en 4821</b></div><div class="field"><label>Último pago</label><b>Restaurante Marena · 42,80 €</b></div><div class="field"><label>Suscripción</label><b>JeFree Premium activa</b></div><div class="field"><label>Próxima renovación</label><b>01 Jun</b></div></div>`,false)}
+function openFavorites(){showModal("Favoritos",`<div class="bookingSteps"><div class="step"><span>🍽️</span>Restaurantes mediterráneos con terraza</div><div class="step"><span>🏨</span>Hoteles boutique con cancelación flexible</div><div class="step"><span>💆</span>Spa y masajes de 60 minutos</div></div>`,false)}
+function openHelp(){showModal("Ayuda",`<p>JeFree puede ayudarte a buscar, reservar, cancelar o modificar planes. También puede gestionar recordatorios y alternativas.</p>`,false)}
+function openSettings(){showModal("Ajustes",`<div class="formGrid"><div class="field"><label>Idioma</label><b>Español</b></div><div class="field"><label>Ciudad principal</label><b>Madrid / Barcelona</b></div><div class="field"><label>Modo</label><b>Premium</b></div><div class="field"><label>Notificaciones</label><b>Activadas</b></div></div>`,false)}
+function showNotifications(){showModal("Notificaciones",`<div class="bookingSteps"><div class="step done"><span>✓</span>Tu mesa de hoy está confirmada.</div><div class="step"><span>!</span>JeFree recomienda salir 10 minutos antes por tráfico.</div><div class="step"><span>✦</span>Hay una alternativa mejor para tu masaje del viernes.</div></div>`,false)}
+
+function openChat(){
+ showModal("JeFree Assistant",`
+ <div class="chatPanel">
+  <div>
+   <div class="chatWindow" id="chatWindow"></div>
+   <div class="chatInput"><input id="chatText" placeholder="Escribe aquí..." onkeydown="if(event.key==='Enter')sendChat()"/><button class="send" onclick="sendChat()">Enviar</button></div>
+  </div>
+  <div class="quick">
+   <button onclick="quickChat('Reserva restaurante para esta noche')">Reserva restaurante para esta noche</button>
+   <button onclick="quickChat('Cambia mi masaje')">Cambia mi masaje</button>
+   <button onclick="quickChat('Cancela mi vuelo')">Cancela mi vuelo</button>
+   <button onclick="quickChat('Busca hotel para el fin de semana')">Busca hotel para el fin de semana</button>
+   <button onclick="quickChat('Qué tengo hoy')">Qué tengo hoy</button>
+  </div>
+ </div>`,false);
+ renderChat();
+}
+function assistantAsk(){const input=document.getElementById('assistantInput');const q=input.value.trim();input.value='';openChat();if(q) setTimeout(()=>quickChat(q),100)}
+function renderChat(){const w=document.getElementById('chatWindow');if(!w)return;w.innerHTML=chat.map(m=>`<div class="msg ${m.from==='user'?'user':'bot'}">${m.text}</div>`).join('');w.scrollTop=w.scrollHeight}
+function quickChat(q){chat.push({from:'user',text:q});chat.push({from:'bot',text:botReply(q)});renderChat()}
+function sendChat(){const i=document.getElementById('chatText');const q=i.value.trim();if(!q)return;i.value='';quickChat(q)}
+function botReply(q){
+ const t=q.toLowerCase();
+ if(t.includes('restaurante')) return "He encontrado Restaurante Marena a las 20:30. Mesa para 2, terraza y buena valoración. Puedo confirmar la reserva y sugerir transporte.";
+ if(t.includes('masaje')||t.includes('cambia')){ const r=reservations.find(x=>x.title.includes('Masaje')); if(r){r.date='Mañana · 19:30'; renderCards();} return "He reprogramado tu masaje para mañana a las 19:30 y he actualizado tus próximas reservas."; }
+ if(t.includes('cancela')||t.includes('cancelar')) return "Puedo cancelar la reserva seleccionada. Para evitar errores, abre la reserva concreta y pulsa cancelar; también puedo buscar una alternativa.";
+ if(t.includes('hotel')) return "Tengo una opción recomendada: Hotel Nobu Barcelona, 24–26 May, cancelación flexible. Puedes confirmarlo desde Hoteles.";
+ if(t.includes('hoy')) return "Hoy tienes Restaurante Marena a las 20:30. Te recomiendo salir 10 minutos antes por tráfico.";
+ if(t.includes('vuelo')) return "Tu vuelo a Roma está confirmado para el 30 May a las 09:15. Puedo activar alertas de cambios o ayudarte a cancelarlo.";
+ return "Puedo ayudarte a buscar, reservar, cambiar o cancelar. JeFree centraliza la gestión y actualiza tus reservas automáticamente.";
+}
+renderCards();
+</script>
+</body>
+</html>
